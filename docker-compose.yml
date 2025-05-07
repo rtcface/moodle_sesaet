@@ -1,0 +1,46 @@
+version: "3.3"
+
+services:
+  mariadb:
+    image: bitnami/mariadb:10.5
+    container_name: moodle-db
+    environment:
+      - ALLOW_EMPTY_PASSWORD=${ALLOW_EMPTY_PASSWORD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+    volumes:
+      - ./moodle_db:/var/lib/mysql
+    networks:
+      - moodle-network
+    restart: always
+
+  moodle:
+    image: bitnami/moodle:4.2
+    restart: always
+    container_name: moodle
+    ports:
+      - "${MOODLE_PORT_HTTP}:8080"
+      - "${MOODLE_PORT_HTTPS}:8443"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=${ALLOW_EMPTY_PASSWORD}
+      - MOODLE_DATABASE_USER=${MOODLE_DATABASE_USER}
+      - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
+      - MOODLE_DATABASE_NAME=${MOODLE_DATABASE_NAME}
+      - MOODLE_DATABASE_HOST=${MOODLE_DATABASE_HOST}
+      - MOODLE_USERNAME=${MOODLE_USERNAME}
+      - MOODLE_PASSWORD=${MOODLE_PASSWORD}
+      - BITNAMI_DEBUG=${BITNAMI_DEBUG}
+    volumes:
+      - ./moodle_data:/bitnami/moodle
+      - ./moodledata_data:/bitnami/moodledata
+      - ./moodle_data_backup:/bitnami/backup_moodle
+      - ./moodledata_data_backup:/bitnami/backup_moodledata
+    depends_on:
+      - mariadb
+    networks:
+      - moodle-network
+
+networks:
+  moodle-network:
+    driver: bridge
