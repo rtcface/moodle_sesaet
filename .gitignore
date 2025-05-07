@@ -1,3 +1,7 @@
 .env
+moodle_data
 moodle_data_backup
+moodle_db
+moodledata_data
 moodledata_data_backup
+
