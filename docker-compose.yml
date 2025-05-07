@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   mariadb:
-    image: bitnami/mariadb:10.5
+    image: bitnami/mariadb:10.6
     container_name: moodle-db
     environment:
       - ALLOW_EMPTY_PASSWORD=${ALLOW_EMPTY_PASSWORD}
@@ -10,7 +10,7 @@ services:
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
       - MARIADB_DATABASE=${MARIADB_DATABASE}
     volumes:
-      - ./moodle_db:/var/lib/mysql
+      - ./moodle_db:/bitnami/mariadb
     networks:
       - moodle-network
     restart: always
@@ -27,7 +27,7 @@ services:
       - MOODLE_DATABASE_USER=${MOODLE_DATABASE_USER}
       - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MOODLE_DATABASE_NAME=${MOODLE_DATABASE_NAME}
-      - MOODLE_DATABASE_HOST=${MOODLE_DATABASE_HOST}
+      - MOODLE_DATABASE_HOST=mariadb
       - MOODLE_USERNAME=${MOODLE_USERNAME}
       - MOODLE_PASSWORD=${MOODLE_PASSWORD}
       - BITNAMI_DEBUG=${BITNAMI_DEBUG}
