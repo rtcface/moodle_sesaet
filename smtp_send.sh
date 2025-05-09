@@ -14,7 +14,7 @@ SMTP_PORT="465"
 SENDER_EMAIL="admin@saetlax.org"
 
 # Tu contraseña de correo
-SENDER_PASSWORD="dkxifjaejbgqwfaa"
+SENDER_PASSWORD="Contraseña del sistema"
 
 # Correo del destinatario (puede ser el mismo que el tuyo para una prueba)
 RECIPIENT_EMAIL="rtcface@gmail.com"
